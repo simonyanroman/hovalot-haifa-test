@@ -1,0 +1,597 @@
+/*
+    Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property
+    - The "symbol *" part is to solve Firefox SVG sprite bug
+ */
+*:where(
+    :not(html, iframe, canvas, img, svg, video, audio):not(svg *, symbol *)
+  ) {
+  all: unset;
+  display: revert;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Reapply the pointer cursor for anchor tags */
+a,
+button {
+  cursor: revert;
+}
+
+/* Remove list styles (bullets/numbers) */
+ol,
+ul,
+menu {
+  list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img {
+  max-inline-size: 100%;
+  max-block-size: 100%;
+}
+
+/* removes spacing between cells in tables */
+table {
+  border-collapse: collapse;
+}
+
+/* Safari - solving issue when using user-select:none on the <body> text input doesn't working */
+input,
+textarea {
+  -webkit-user-select: auto;
+}
+
+/* revert the 'white-space' property for textarea elements on Safari */
+textarea {
+  white-space: revert;
+}
+
+/* minimum style to allow to style meter element */
+meter {
+  -webkit-appearance: revert;
+  appearance: revert;
+}
+
+/* preformatted text - use only for this feature */
+:where(pre) {
+  all: revert;
+}
+
+/* reset default text opacity of input placeholder */
+::placeholder {
+  color: unset;
+}
+
+/* remove default dot (•) sign */
+::marker {
+  content: initial;
+}
+
+/* fix the feature of 'hidden' attribute.
+   display:revert; revert to element instead of attribute */
+:where([hidden]) {
+  display: none;
+}
+
+/* revert for bug in Chromium browsers
+   - fix for the content editable attribute will work properly.
+   - webkit-user-select: auto; added for Safari in case of using user-select:none on wrapper element*/
+:where([contenteditable]:not([contenteditable="false"])) {
+  -moz-user-modify: read-write;
+  -webkit-user-modify: read-write;
+  overflow-wrap: break-word;
+  -webkit-line-break: after-white-space;
+  -webkit-user-select: auto;
+}
+
+/* apply back the draggable feature - exist only in Chromium and Safari */
+:where([draggable="true"]) {
+  -webkit-user-drag: element;
+}
+
+/* Revert Modal native behavior */
+:where(dialog:modal) {
+  all: revert;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Resetting root parameters */
+:root {
+  font-family: "Rubik";
+  font-size: 18px;
+
+  /* Content wrapper width */
+  --desktop-wrapper-width: 80%;
+  --mobile-wrapper-width: 100%;
+
+  /* Base elements/cards gap */
+  --base-elements-gap: 5px;
+
+  /* Sections padding */
+  --base-header-footer-padding: 10px 0px;
+  --base-section-header-padding: 40px 0;
+  --base-cta-wrapper-padding: 40px 0 20px 0;
+  --service-side-padding: 0 40px;
+  --headline-text-padding: 40px 40px;
+  --cta-button-padding: 20px 40px;
+
+  /* Font sizes */
+  --header-logo: 1.8rem;
+  --contacts: 1.5rem;
+  --cover-headline: 2.5rem;
+  --section-header: 2rem;
+  --main-text: 1.2rem;
+  --copyright-text: 0.7rem;
+}
+
+h1 {
+  font-size: var(--cover-headline);
+  font-weight: bold;
+}
+
+h2 {
+  font-size: var(--section-header);
+  text-decoration: underline;
+}
+
+h3 {
+  font-size: var(--header-logo);
+  font-weight: 700;
+}
+
+h4 {
+  font-size: var(--copyright-text);
+}
+
+h5 {
+  font-size: var(--contacts);
+  font-weight: 600;
+}
+
+h6 {
+  font-size: var(--contacts);
+  text-decoration: underline;
+}
+
+p {
+  font-size: var(--main-text);
+}
+
+body {
+  background-color: bisque;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.section-header {
+  align-self: flex-start;
+
+  padding: var(--base-section-header-padding);
+}
+
+header {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  background-color: burlywood;
+
+  padding: var(--base-header-footer-padding);
+}
+
+.header-wrapper {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-menu {
+  display: flex;
+
+  align-items: center;
+
+  gap: calc(var(--base-elements-gap) * 4);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.cover {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+  justify-content: flex-end;
+
+  background-image: url(image/hero-image.jpg);
+  background-size: cover;
+
+  width: 100%;
+  height: 60vh;
+
+  position: relative;
+}
+
+.language_selector {
+  display: flex;
+
+  justify-content: flex-end;
+  width: 100%;
+
+  position: absolute;
+  top: 0;
+}
+
+.language_button {
+  width: 50px;
+  height: 50px;
+
+  text-align: center;
+
+  font-size: 1.2rem;
+
+  color: black;
+  background-color: bisque;
+  border: 0;
+}
+
+.language_button:hover {
+  cursor: pointer;
+}
+
+.active {
+  color: black;
+  background-color: burlywood;
+}
+
+.benefits {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.benefits-card-wrapper {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: calc(var(--base-elements-gap) * 8);
+}
+
+.benefits-card {
+  display: flex;
+
+  align-items: center;
+
+  gap: var(--base-elements-gap);
+}
+
+#checkmark-icon {
+  width: 32px;
+}
+
+.cover-headline {
+  padding: var(--headline-text-padding);
+
+  position: relative;
+}
+
+.cta-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--base-cta-wrapper-padding);
+
+  gap: var(--base-elements-gap);
+
+  text-align: center;
+}
+
+#cta {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: calc(var(--base-elements-gap) * 4);
+
+  padding: var(--cta-button-padding);
+
+  background-color: darkorange;
+}
+
+#cta:hover {
+  cursor: pointer;
+}
+
+.service {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.service-card-wrapper {
+  display: flex;
+
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  width: 100%;
+
+  justify-content: space-around;
+
+  gap: calc(var(--base-elements-gap) * 8);
+}
+
+.service-card {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 40%;
+
+  gap: calc(var(--base-elements-gap) * 8);
+}
+
+.service-description {
+  display: flex;
+
+  flex-direction: column;
+
+  text-align: left;
+}
+
+.service-icon-wrapper {
+  display: block;
+  width: min-content;
+}
+
+#service-icon {
+  min-width: 64px;
+}
+
+.cities {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}
+
+.cities-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+  justify-content: center;
+
+  width: var(--desktop-wrapper-width);
+
+  gap: calc(var(--base-elements-gap) * 4);
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  padding-bottom: calc(var(--base-elements-gap) * 16);
+}
+
+.contacts-wrapper {
+  display: flex;
+
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: calc(var(--base-elements-gap) * 4);
+}
+
+.contact-card {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: calc(var(--base-elements-gap) * 2);
+}
+
+footer {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  background-color: burlywood;
+
+  padding: var(--base-header-footer-padding);
+
+  position: fixed;
+  bottom: 0;
+}
+
+.footer-wrapper {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-contacts {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: calc(var(--base-elements-gap) * 4);
+}
+
+#footer-contacts-icon {
+  width: 32px;
+}
+
+.hidden {
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .header-wrapper {
+    width: var(--desktop-wrapper-width);
+  }
+
+  .main-wrapper {
+    width: var(--desktop-wrapper-width);
+  }
+
+  .footer-wrapper {
+    width: var(--desktop-wrapper-width);
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  :root {
+    font-size: 14px;
+    --base-header-footer-padding: 10px 20px;
+    --base-section-header-padding: 20px 20px;
+    --headline-text-padding: 20px 20px;
+  }
+
+  .header-wrapper {
+    width: var(--mobile-wrapper-width);
+  }
+
+  .main-wrapper {
+    width: var(--mobile-wrapper-width);
+  }
+
+  .footer-wrapper {
+    width: var(--mobile-wrapper-width);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    --cta-button-padding: 20px 20px;
+  }
+
+  .header-wrapper {
+    width: var(--mobile-wrapper-width);
+  }
+
+  .main-wrapper {
+    width: var(--mobile-wrapper-width);
+  }
+
+  .footer-wrapper {
+    width: var(--mobile-wrapper-width);
+  }
+
+  .cover {
+    height: 40vh;
+  }
+
+  .benefits-card-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    width: 50%;
+
+    align-items: flex-start;
+    justify-content: center;
+
+    gap: var(--base-elements-gap);
+  }
+
+  .service-card-wrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+  }
+
+  .service-card {
+    width: 80%;
+  }
+
+  .header-menu {
+    display: none;
+  }
+
+  #service-icon {
+    min-width: 48px;
+  }
+
+  .contact-card {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: calc(var(--base-elements-gap));
+  }
+}
+
+@media screen and (max-width: 320px) {
+  :root {
+    font-size: 12px;
+    --headline-text-padding: 10px 20px;
+  }
+}
